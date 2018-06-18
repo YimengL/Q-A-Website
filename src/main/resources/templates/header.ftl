@@ -58,7 +58,9 @@
                 </ul>
             </#if>
         </div>
-        <button class="zu-top-add-question" id="zu-top-add-question">提问</button>
+        <#if user??>
+            <button class="zu-top-add-question" id="zu-top-add-question">提问</button>
+        </#if>
         <div role="search" id="zh-top-search" class="zu-top-search">
             <form method="GET" action="https://nowcoder.com/search" id="zh-top-search-form" class="zu-top-search-form">
                 <input type="hidden" name="type" value="content">

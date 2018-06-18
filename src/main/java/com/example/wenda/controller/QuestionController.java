@@ -44,7 +44,7 @@ public class QuestionController {
             }
             if (questionService.addQuestion(question) > 0) {
                 return WendaUtil.getJSONString(0);
-            };
+            }
         }
         catch (Exception e) {
             logger.error("增加题目失败" + e.getMessage());
