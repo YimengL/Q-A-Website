@@ -16,6 +16,10 @@ public class QuestionService {
     @Autowired
     SensitiveService sensitiveService;
 
+    public Question selectById(int id) {
+        return questionDAO.selectById(id);
+    }
+
     public int addQuestion(Question question) {
         // 过滤掉HTML标签
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));

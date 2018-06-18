@@ -3,15 +3,14 @@ package com.example.wenda.controller;
 import com.example.wenda.model.HostHolder;
 import com.example.wenda.model.Question;
 import com.example.wenda.service.QuestionService;
+import com.example.wenda.service.UserService;
 import com.example.wenda.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -22,6 +21,9 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     HostHolder hostHolder;
@@ -50,5 +52,13 @@ public class QuestionController {
             logger.error("增加题目失败" + e.getMessage());
         }
         return WendaUtil.getJSONString(1, "失败");
+    }
+
+    @RequestMapping(value = "/question/{qid}")
+    public String questionDetail(Model model, @PathVariable("qid") int qid) {
+        Question question = questionService.selectById(qid);
+        model.addAttribute("question", question);
+        model.addAttribute("user", userService.getUser(question.getUserId()));
+        return "detail";
     }
 }
