@@ -22,9 +22,7 @@
             -->
             <div id="zh-question-title" data-editable="true" class="zm-editable-status-normal">
                 <h2 class="zm-item-title">
-
                     <span class="zm-editable-content">${question.title!}</span>
-
                 </h2>
             </div>
             <div id="zh-question-detail" class="zm-item-rich-text zm-editable-status-normal">
@@ -78,69 +76,71 @@
                  data-widget="navigable" data-navigable-options="{&quot;items&quot;: &quot;&gt;.zm-item-answer&quot;}"
                  data-init="{&quot;params&quot;: {&quot;url_token&quot;: 36301524, &quot;pagesize&quot;: 10, &quot;offset&quot;: 0}, &quot;nodename&quot;: &quot;QuestionAnswerListV2&quot;}">
 
-                #foreach($comment in $comments)
-                <div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemprop="topAnswer" itemscope=""
-                     itemtype="http://schema.org/Answer" data-aid="22162611" data-atoken="66862039" data-collapsed="0"
-                     data-created="1444310527" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1"
-                     data-za-module="AnswerItem">
-                    <link itemprop="url" href="">
-                    <meta itemprop="answer-id" content="22162611">
-                    <meta itemprop="answer-url-token" content="66862039">
-                    <a class="zg-anchor-hidden" name="answer-22162611"></a>
-                    <div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
-                        <button class="up" aria-pressed="false" title="赞同">
-                            <i class="icon vote-arrow"></i>
-                            <span class="count">28</span>
-                            <span class="label sr-only">赞同</span></button>
-                        <button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
-                            <i class="icon vote-arrow"></i>
-                            <span class="label sr-only">反对，不会显示你的姓名</span></button>
-                    </div>
-                    <div class="answer-head">
-                        <div class="zm-item-answer-author-info">
-                            <a class="zm-item-link-avatar avatar-link" href="" target="_blank"
-                               data-tip="p$t$yingxiaodao">
-                                <img src="$comment.user.headUrl"
-                                     class="zm-list-avatar avatar"></a>
-                            <a class="author-link" target="_blank" href="/user/$comment.user.id">$comment.user.name</a>
+                <#list comments as comment>
+                <#--#foreach($comment in $comments)-->
+                    <div tabindex="-1" class="zm-item-answer  zm-item-expanded" itemprop="topAnswer" itemscope=""
+                         itemtype="http://schema.org/Answer" data-aid="22162611" data-atoken="66862039" data-collapsed="0"
+                         data-created="1444310527" data-deleted="0" data-helpful="1" data-isowner="0" data-copyable="1"
+                         data-za-module="AnswerItem">
+                        <link itemprop="url" href="">
+                        <meta itemprop="answer-id" content="22162611">
+                        <meta itemprop="answer-url-token" content="66862039">
+                        <a class="zg-anchor-hidden" name="answer-22162611"></a>
+                        <div class="zm-votebar goog-scrollfloater" data-za-module="VoteBar">
+                            <button class="up" aria-pressed="false" title="赞同">
+                                <i class="icon vote-arrow"></i>
+                                <span class="count">28</span>
+                                <span class="label sr-only">赞同</span></button>
+                            <button class="down" aria-pressed="false" title="反对，不会显示你的姓名">
+                                <i class="icon vote-arrow"></i>
+                                <span class="label sr-only">反对，不会显示你的姓名</span></button>
                         </div>
-                        <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
-                                <span class="voters text">
-                                    <a href="" class="more text">
-                                        <span class="js-voteCount">28</span>&nbsp;人赞同</a></span>
+                        <div class="answer-head">
+                            <div class="zm-item-answer-author-info">
+                                <a class="zm-item-link-avatar avatar-link" href="" target="_blank"
+                                   data-tip="p$t$yingxiaodao">
+                                    <img src="${comment.user.headUrl}"
+                                         class="zm-list-avatar avatar"></a>
+                                <a class="author-link" target="_blank" href="/user/${comment.user.id}">${comment.user.name}</a>
+                            </div>
+                            <div class="zm-item-vote-info" data-votecount="28" data-za-module="VoteInfo">
+                                    <span class="voters text">
+                                        <a href="" class="more text">
+                                            <span class="js-voteCount">28</span>&nbsp;人赞同</a></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688"
-                         data-action="/answer/content" data-author-name="营销岛"
-                         data-entry-url="/question/36301524/answer/66862039">
-                        <div class="zm-editable-content clearfix">
-                            $comment.comment.content
+                        <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688"
+                             data-action="/answer/content" data-author-name="营销岛"
+                             data-entry-url="/question/36301524/answer/66862039">
+                            <div class="zm-editable-content clearfix">
+                                ${comment.comment.content}
+                            </div>
                         </div>
-                    </div>
-                    <a class="zg-anchor-hidden ac" name="22162611-comment"></a>
-                    <div class="zm-item-meta answer-actions clearfix js-contentActions">
-                        <div class="zm-meta-panel">
-                            <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">发布于
-                                $date.format('yyyy-MM-dd HH:mm:ss', $comment.comment.createdDate)</a>
+                        <a class="zg-anchor-hidden ac" name="22162611-comment"></a>
+                        <div class="zm-item-meta answer-actions clearfix js-contentActions">
+                            <div class="zm-meta-panel">
+                                <a itemprop="url" class="answer-date-link meta-item" target="_blank" href="">发布于
+                                    ${comment.comment.createdDate?datetime?string("yyyy-MM-dd HH:mm:ss")!}</a>
 
-                            <!--
-                            <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-                                <i class="z-icon-comment"></i>4 条评论</a>
-                            <a href="" class="meta-item zu-autohide js-thank" data-thanked="false">
-                                <i class="z-icon-thank"></i>感谢</a>
+                                <!--
+                                <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                                    <i class="z-icon-comment"></i>4 条评论</a>
+                                <a href="" class="meta-item zu-autohide js-thank" data-thanked="false">
+                                    <i class="z-icon-thank"></i>感谢</a>
 
-                            <button class="item-collapse js-collapse" style="transition: none;">
-                                <i class="z-icon-fold"></i>收起
-                            </button>
-                            -->
+                                <button class="item-collapse js-collapse" style="transition: none;">
+                                    <i class="z-icon-fold"></i>收起
+                                </button>
+                                -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                #end
+                </#list>
+                <#--#end-->
             </div>
             <a name="draft"></a>
             <form action="/addComment" method="post" id="commentform">
-                <input type="hidden" name="questionId" value="$question.id"/>
+                <input type="hidden" name="questionId" value="${question.id!}"/>
                 <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
                     <div class="zm-editable-editor-wrap" style="">
                         <div class="zm-editable-editor-outer">
@@ -156,7 +156,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

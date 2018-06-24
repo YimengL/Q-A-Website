@@ -25,4 +25,10 @@ public interface QuestionDAO {
     List<Question> selectLatestQuestions(@Param("userId") int userId,
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
+
+    @Select({"SELECT ", SELECT_FEILDS, " FROM ", TABLE_NAME, " WHERE id=#{id}"})
+    Question getById(int id);
+
+    @Update({"UPDATE ", TABLE_NAME, " SET comment_count=#{commentCount} WHERE id=#{id}"})
+    int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
 }
