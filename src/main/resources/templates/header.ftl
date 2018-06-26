@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="msg/list" tabindex="-1" id=":2">
+                        <a href="/msg/list" tabindex="-1" id=":2">
                             <i class="zg-icon zg-icon-dd-pm"></i>私信
                             <span id="zh-top-nav-pm-count" class="zu-top-nav-pm-count zg-noti-number" style="visibility:hidden" data-count="0">
                     </span>

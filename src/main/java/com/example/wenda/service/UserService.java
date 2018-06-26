@@ -1,6 +1,6 @@
 package com.example.wenda.service;
 
-import com.example.wenda.dao.LoginTicketDao;
+import com.example.wenda.dao.LoginTicketDAO;
 import com.example.wenda.dao.UserDAO;
 import com.example.wenda.model.LoginTicket;
 import com.example.wenda.model.User;
@@ -21,7 +21,11 @@ public class UserService {
     private UserDAO userDAO;
 
     @Autowired
-    private LoginTicketDao loginTicketDao;
+    private LoginTicketDAO loginTicketDAO;
+
+    public User selectByName(String name) {
+        return userDAO.selectByName(name);
+    }
 
     public Map<String, String> register(String username, String password) {
         Map<String, String> map = new HashMap<>();
@@ -93,12 +97,12 @@ public class UserService {
         loginTicket.setExpired(now);
         loginTicket.setStatus(0);       // 0 means VALID
         loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
-        loginTicketDao.addTicket(loginTicket);
+        loginTicketDAO.addTicket(loginTicket);
         return loginTicket.getTicket();
     }
 
     public void logout(String ticket) {
-        loginTicketDao.updateStatus(ticket, 1); // 1 is invalid
+        loginTicketDAO.updateStatus(ticket, 1); // 1 is invalid
     }
 
     public User getUser(int id) {

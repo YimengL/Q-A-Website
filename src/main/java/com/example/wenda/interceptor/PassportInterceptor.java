@@ -1,6 +1,6 @@
 package com.example.wenda.interceptor;
 
-import com.example.wenda.dao.LoginTicketDao;
+import com.example.wenda.dao.LoginTicketDAO;
 import com.example.wenda.dao.UserDAO;
 import com.example.wenda.model.HostHolder;
 import com.example.wenda.model.LoginTicket;
@@ -19,7 +19,7 @@ import java.util.Date;
 public class PassportInterceptor implements HandlerInterceptor {
 
     @Autowired
-    LoginTicketDao loginTicketDao;
+    LoginTicketDAO loginTicketDAO;
 
     @Autowired
     UserDAO userDAO;
@@ -41,7 +41,7 @@ public class PassportInterceptor implements HandlerInterceptor {
         }
 
         if (ticket != null) {
-            LoginTicket loginTicket = loginTicketDao.selectByTicket(ticket);
+            LoginTicket loginTicket = loginTicketDAO.selectByTicket(ticket);
             if (loginTicket == null || loginTicket.getExpired().before(new Date()) || loginTicket.getStatus() != 0) {
                 return true;
             }
