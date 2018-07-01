@@ -2,6 +2,7 @@ package com.example.wenda.controller;
 
 import com.example.wenda.model.*;
 import com.example.wenda.service.CommentService;
+import com.example.wenda.service.LikeService;
 import com.example.wenda.service.QuestionService;
 import com.example.wenda.service.UserService;
 import com.example.wenda.util.WendaUtil;
@@ -29,6 +30,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
@@ -68,9 +72,15 @@ public class QuestionController {
         List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
         List<ViewObject> comments = new ArrayList<>();
         for (Comment comment : commentList) {
-            // logger.info("haha");
             ViewObject vo = new ViewObject();
             vo.set("comment", comment);
+            if (hostHolder.getUser() == null) {
+                vo.set("liked", 0);
+            }
+            else {
+                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
             vo.set("user", userService.getUser(comment.getUserId()));
             comments.add(vo);
         }
