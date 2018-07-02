@@ -9,6 +9,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.*;
 
+import java.util.List;
+
 
 @Service
 public class JedisAdapter implements InitializingBean {
@@ -92,6 +94,40 @@ public class JedisAdapter implements InitializingBean {
             }
         }
         return false;
+    }
+
+    public List<String> brpop(int timeout, String key) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.brpop(timeout, key);
+        }
+        catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return null;
+    }
+
+    public long lpush(String key, String value) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.lpush(key, value);
+        }
+        catch (Exception e) {
+            logger.error("发生异常" + e.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return 0;
     }
 
 //    public static void main(String[] argv) {
