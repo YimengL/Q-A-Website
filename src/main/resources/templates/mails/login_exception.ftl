@@ -1,1 +1,2 @@
-Hi ${username}，Test Message: Login Exception
+Hi ${username}.
+Test Message: Login Exception
