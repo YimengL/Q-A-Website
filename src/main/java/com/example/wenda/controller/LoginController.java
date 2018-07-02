@@ -1,5 +1,8 @@
 package com.example.wenda.controller;
 
+import com.example.wenda.async.EventModel;
+import com.example.wenda.async.EventProducer;
+import com.example.wenda.async.EventType;
 import com.example.wenda.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path = {"/reg"}, method = {RequestMethod.POST})
     public String reg(Model model,
                       @RequestParam("username") String username,
@@ -32,9 +38,9 @@ public class LoginController {
                       @RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,
                       HttpServletResponse response) {
         try {
-            Map<String, String> map = userService.register(username, password);
+            Map<String, Object> map = userService.register(username, password);
             if (map.containsKey("ticket")) {
-                Cookie cookie = new Cookie("ticket", map.get("ticket"));
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 if (!StringUtils.isEmpty(next)) {
@@ -67,11 +73,16 @@ public class LoginController {
                         @RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,
                         HttpServletResponse response) {
         try {
-            Map<String, String> map = userService.login(username, password);
+            Map<String, Object> map = userService.login(username, password);
             if (map.containsKey("ticket")) {
-                Cookie cookie = new Cookie("ticket", map.get("ticket"));
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username", username).setExt("email", "lym1108csu@gmail.com")
+                        .setActorId((int)map.get("userId")));
+
                 if (!StringUtils.isEmpty(next)) {
                     return "redirect:" + next;
                 }

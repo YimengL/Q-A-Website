@@ -27,8 +27,8 @@ public class UserService {
         return userDAO.selectByName(name);
     }
 
-    public Map<String, String> register(String username, String password) {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> register(String username, String password) {
+        Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(username)) {
             map.put("msg", "username can not be empty");
             return map;
@@ -60,8 +60,8 @@ public class UserService {
         return map;
     }
 
-    public Map<String, String> login(String username, String password) {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> login(String username, String password) {
+        Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(username)) {
             map.put("msg", "username can not be empty");
             return map;
@@ -86,6 +86,7 @@ public class UserService {
 
         String ticket = addLoginTicket(user.getId());
         map.put("ticket", ticket); // send to browser as cookie
+        map.put("userId", user.getId());
         return map;
     }
 
