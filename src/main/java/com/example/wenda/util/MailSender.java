@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
@@ -65,8 +63,6 @@ public class MailSender implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         mailSender = new JavaMailSenderImpl();
         mailSender.setUsername("lym1108csu@gmail.com");
-        logger.error(env.getProperty("spring.mail.password"));
-        // logger.error(environment.getProperty("$gmail_password"));
         mailSender.setPassword(env.getProperty("spring.mail.password"));
 
         mailSender.setHost("smtp.gmail.com");
