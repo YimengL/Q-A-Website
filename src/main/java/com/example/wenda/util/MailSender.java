@@ -44,6 +44,7 @@ public class MailSender implements InitializingBean {
 
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setSubject(subject);
             mimeMessageHelper.setText(result, true);
             mailSender.send(mimeMessage);
             return true;

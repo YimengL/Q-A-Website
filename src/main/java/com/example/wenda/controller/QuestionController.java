@@ -1,10 +1,7 @@
 package com.example.wenda.controller;
 
 import com.example.wenda.model.*;
-import com.example.wenda.service.CommentService;
-import com.example.wenda.service.LikeService;
-import com.example.wenda.service.QuestionService;
-import com.example.wenda.service.UserService;
+import com.example.wenda.service.*;
 import com.example.wenda.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +32,9 @@ public class QuestionController {
     LikeService likeService;
 
     @Autowired
+    FollowService followService;
+
+    @Autowired
     HostHolder hostHolder;
 
     @RequestMapping(value = "/question/add", method = RequestMethod.POST)
@@ -45,8 +45,6 @@ public class QuestionController {
             question.setContent(content);
             question.setTitle(title);
             question.setCreatedDate(new Date());
-            question.setCommentCount(0);
-            question.setCommentCount(0);
             if (hostHolder.getUser() == null) {
                 question.setUserId(WendaUtil.ANONYMOUS_USERID);
             }
@@ -63,11 +61,11 @@ public class QuestionController {
         return WendaUtil.getJSONString(1, "失败");
     }
 
-    @RequestMapping(value = "/question/{qid}")
+    @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
-        Question question = questionService.selectById(qid);
+        Question question = questionService.getById(qid);
         model.addAttribute("question", question);
-        model.addAttribute("user", userService.getUser(question.getUserId()));
+        // model.addAttribute("user", userService.getUser(question.getUserId()));
 
         List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
         List<ViewObject> comments = new ArrayList<>();
@@ -86,6 +84,28 @@ public class QuestionController {
         }
 
         model.addAttribute("comments", comments);
+
+        List<ViewObject> followUsers = new ArrayList<>();
+        List<Integer> users = followService.getFollowers(EntityType.ENTITY_QUESTION, qid, 20);
+        for (Integer userId : users) {
+            ViewObject vo = new ViewObject();
+            User u = userService.getUser(userId);
+            if (u == null) {
+                continue;
+            }
+            vo.set("name", u.getName());
+            vo.set("headUrl", u.getHeadUrl());
+            vo.set("id", u.getId());
+            followUsers.add(vo);
+        }
+        model.addAttribute("followUsers", followUsers);
+        if (hostHolder.getUser() != null) {
+            model.addAttribute("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_QUESTION, qid));
+        }
+        else {
+            model.addAttribute("followed", false);
+        }
+
         return "detail";
     }
 }
