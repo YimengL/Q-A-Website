@@ -5,11 +5,13 @@
     <sql id="table">feed</sql>
     <sql id="selectFields">id, created_date,user_id, data, type
     </sql>
-    <select id="selectLatestQuestions" resultType="com.example.wenda.model.Feed">
+    <select id="selectUserFeeds" resultType="com.example.wenda.model.Feed">
         SELECT
         <include refid="selectFields"/>
         FROM
         <include refid="table"/>
+
+        WHERE id &lt; #{maxId}
 
         <if test="userIds.size() != 0">
             AND user_id in

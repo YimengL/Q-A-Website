@@ -1,12 +1,12 @@
 <#include "header.ftl">
 <#macro comment_question vo>
     <div class="feed-item folding feed-item-hook feed-item-2
-                            " feed-item-a="" data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
+                        " feed-item-a="" data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
         <meta itemprop="ZReactor" data-id="389034" data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;, &quot;voteups&quot;: 4168, &quot;comments&quot;: 69, &quot;source&quot;: []}">
         <div class="feed-item-inner">
             <div class="avatar">
-                <a title="$!{vo.userName}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.userId}">
-                    <img src="$!{vo.userHead}" class="zm-item-img-avatar"></a>
+                <a title="${vo.userName!}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.userId}">
+                    <img src="${vo.userHead!}" class="zm-item-img-avatar"></a>
             </div>
             <div class="feed-main">
                 <div class="feed-content" data-za-module="AnswerItem">
@@ -20,13 +20,13 @@
                     </div>
                     -->
                     <div class="expandable entry-body">
-                        <!--
-                        <div class="zm-item-vote">
-                            <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">${vo.followCount}</a></div>
-                            -->
+
+                    <#--<div class="zm-item-vote">-->
+                        <#--<a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">${vo.followCount}</a></div>-->
+
                         <div class="zm-item-answer-author-info">
-                            <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/$!{vo.userId}">$!{vo.userName}</a>
-                            评论了该问题 ，${vo.question.createdDate?datetime?string("yyyy-MM-dd HH:mm:ss")!}</div>
+                            <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/${vo.userId!}">${vo.userName!}</a>
+                            评论了该问题 ，${vo.createdDate?datetime?string("yyyy-MM-dd HH:mm:ss")!}</div>
                         <!--
                         <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">
                             <span class="voters text">
@@ -38,23 +38,23 @@
                             <div class="zh-summary summary clearfix">${vo.questionTitle}</div>
                         </div>
                     </div>
-                    <!--
-                    <div class="feed-meta">
-                        <div class="zm-item-meta answer-actions clearfix js-contentActions">
-                            <div class="zm-meta-panel">
-                                <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">
-                                    <i class="z-icon-follow"></i>关注问题</a>
-                                <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-                                    <i class="z-icon-comment"></i>${vo.question.commentCount} 条评论</a>
+
+                <#--<div class="feed-meta">-->
+                    <#--<div class="zm-item-meta answer-actions clearfix js-contentActions">-->
+                        <#--<div class="zm-meta-panel">-->
+                            <#--<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">-->
+                                <#--<i class="z-icon-follow"></i>关注问题</a>-->
+                            <#--<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">-->
+                                <#--<i class="z-icon-comment"></i>${vo.question.commentCount} 条评论</a>-->
 
 
-                                <button class="meta-item item-collapse js-collapse">
-                                    <i class="z-icon-fold"></i>收起</button>
-                            </div>
-                        </div>
+                            <#--<button class="meta-item item-collapse js-collapse">-->
+                                <#--<i class="z-icon-fold"></i>收起</button>-->
+                        <#--</div>-->
+                    <#--</div>-->
 
-                    </div>
-                    -->
+                <#--</div>-->
+
                 </div>
             </div>
         </div>
@@ -63,12 +63,12 @@
 
 <#macro follow_question vo>
     <div class="feed-item folding feed-item-hook feed-item-2
-                            " feed-item-a="" data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
+                        " feed-item-a="" data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
         <meta itemprop="ZReactor" data-id="389034" data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;, &quot;voteups&quot;: 4168, &quot;comments&quot;: 69, &quot;source&quot;: []}">
         <div class="feed-item-inner">
             <div class="avatar">
-                <a title="$!{vo.userName}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.userId}">
-                    <img src="$!{vo.userHead}" class="zm-item-img-avatar"></a>
+                <a title="${vo.userName!}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="/user/${vo.userId}">
+                    <img src="${vo.userHead!}" class="zm-item-img-avatar"></a>
             </div>
             <div class="feed-main">
                 <div class="feed-content" data-za-module="AnswerItem">
@@ -82,13 +82,13 @@
                     </div>
                     -->
                     <div class="expandable entry-body">
-                        <!--
-                        <div class="zm-item-vote">
-                            <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">${vo.followCount}</a></div>
-                            -->
+
+                    <#--<div class="zm-item-vote">-->
+                        <#--<a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">${vo.followCount}</a></div>-->
+
                         <div class="zm-item-answer-author-info">
-                            <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/$!{vo.userId}">$!{vo.userName}</a>
-                            关注了该问题 ，${vo.question.createdDate?datetime?string("yyyy-MM-dd HH:mm:ss")!}</div>
+                            <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/$!{vo.userId}">${vo.userName!}</a>
+                            关注了该问题 ，${vo.createdDate?datetime?string("yyyy-MM-dd HH:mm:ss")!}</div>
                         <!--
                         <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">
                             <span class="voters text">
@@ -100,23 +100,23 @@
                             <div class="zh-summary summary clearfix">${vo.questionTitle}</div>
                         </div>
                     </div>
-                    <!--
-                    <div class="feed-meta">
-                        <div class="zm-item-meta answer-actions clearfix js-contentActions">
-                            <div class="zm-meta-panel">
-                                <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">
-                                    <i class="z-icon-follow"></i>关注问题</a>
-                                <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-                                    <i class="z-icon-comment"></i>${vo.question.commentCount} 条评论</a>
+
+                <#--<div class="feed-meta">-->
+                    <#--<div class="zm-item-meta answer-actions clearfix js-contentActions">-->
+                        <#--<div class="zm-meta-panel">-->
+                            <#--<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">-->
+                                <#--<i class="z-icon-follow"></i>关注问题</a>-->
+                            <#--<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">-->
+                                <#--<i class="z-icon-comment"></i>${vo.question.commentCount} 条评论</a>-->
 
 
-                                <button class="meta-item item-collapse js-collapse">
-                                    <i class="z-icon-fold"></i>收起</button>
-                            </div>
-                        </div>
+                            <#--<button class="meta-item item-collapse js-collapse">-->
+                                <#--<i class="z-icon-fold"></i>收起</button>-->
+                        <#--</div>-->
+                    <#--</div>-->
 
-                    </div>
-                    -->
+                <#--</div>-->
+
                 </div>
             </div>
         </div>

@@ -1,5 +1,8 @@
 package com.example.wenda.controller;
 
+import com.example.wenda.async.EventModel;
+import com.example.wenda.async.EventProducer;
+import com.example.wenda.async.EventType;
 import com.example.wenda.model.Comment;
 import com.example.wenda.model.EntityType;
 import com.example.wenda.model.HostHolder;
@@ -30,6 +33,9 @@ public class CommentController {
     @Autowired
     QuestionService questionService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
     public String addComment(@RequestParam("questionId") int questionId,
                              @RequestParam("content") String content) {
@@ -49,6 +55,10 @@ public class CommentController {
 
             int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
             questionService.updateCommentCount(comment.getEntityId(), count);
+
+            eventProducer.fireEvent(new EventModel(EventType.COMMENT)
+                    .setActorId(comment.getUserId())
+                    .setEntityId(questionId));
         }
         catch (Exception e) {
             logger.error("增加评论失败 " + e.getMessage());
